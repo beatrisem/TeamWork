@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="loader" style="visibility: hidden"><img src="progress.gif" style="width: 25px; height: 25px"></div>
+    <div class="button-ribbon">
+        <button type="button" class="btn btn-primary" onclick="showAddDialog();">Add</button>
+        <button id="btnEdit" name="btnEdit" type="button" class="btn btn-primary" onclick="showEditDialog();">Edit
+        </button>
+    </div>
+
+    <!--<div>-->
+    <!--    <button onclick="showMessage()">Load data</button>-->
+    <!--</div>-->
+    <div id="restResult" style="height: 600px;width:1000px;" class="ag-theme-alpine"></div>
+    <!--<div id="result" style="height: 600px;width:500px;" class="ag-theme-alpine"></div>-->
+</div>
+<div id="addEditDialog" name="addEditDialog" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add/Edit restaurant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="frmAddRest" name="frmAddRest">
+                    <div class="form-group">
+                        <label for="txtName">Nosaukums: </label>
+                        <input type="text" id="txtName" name="txtName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCity">Pilsēta: </label>
+                        <input type="text" id="txtCity" name="txtCity" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtAddress">Adrese: </label>
+                        <input type="text" id="txtAddress" name="txtAddress" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDistrict">Rajons: </label>
+                        <input type="text" id="txtDistrict" name="txtDistrict" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtFreeTables">Brīvie galdiņi: </label>
+                        <input type="number" id="txtFreeTables" name="txtFreeTables" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtMaxFreeTables">Max: </label>
+                        <input type="number" id="txtMaxFreeTables" name="txtMaxFreeTables" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLat">Latitude: </label>
+                        <input type="number" id="txtLat" name="txtLat" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLng">Longitude: </label>
+                        <input type="number" id="txtLng" name="txtLng" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addRestaurant(); return false;">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

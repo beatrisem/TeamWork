@@ -1,0 +1,27 @@
+package com.example.demo.data;
+
+import java.util.List;
+
+public interface RestDataRepository {
+
+    <T extends EntityBase> List<T> getList(Class<T> item);
+    <T extends EntityBase> T getById(Class<T> item, int id);
+    <T extends EntityBase> void deleteById(Class<T> item, int id);
+
+    int addRestaurant(Restaurant restaurant);
+
+    int updateRestaurant(Restaurant restaurant);
+
+
+    List<Restaurant> getRestaurants();
+
+    List<Restaurant> getByStreet(String street);
+
+    List<Restaurant> getByCity(String city);
+
+    List<Restaurant> getByDistrict(String district);
+
+    List<Restaurant> getByName(String name);
+
+    void updateFreeTableCount(Restaurant rest, int count);
+}
