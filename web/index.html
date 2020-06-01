@@ -19,7 +19,25 @@
     <script src="index.js"></script>
 </head>
 <body>
-<div class="container">
+
+<!--navigacija-->
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">-->
+    <a class="navbar-brand" href="#">SafeMeal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="search.html">Search <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="index.html">All restaurants </a>
+            <a class="nav-item nav-link" href="map.html">Map </a>
+        </div>
+    </div>
+</nav>
+
+
+<!--kods no macibam-->
+<div class="container" align="center">
     <div id="loader" style="visibility: hidden"><img src="progress.gif" style="width: 25px; height: 25px"></div>
     <div class="button-ribbon">
         <button type="button" class="btn btn-primary" onclick="showAddDialog();">Add</button>
@@ -30,10 +48,10 @@
     <!--<div>-->
     <!--    <button onclick="showMessage()">Load data</button>-->
     <!--</div>-->
-    <div id="restResult" style="height: 600px;width:1000px;" class="ag-theme-alpine"></div>
+    <div id="restResult" style="height: 500px;width:1000px;" class="ag-theme-alpine"></div>
     <!--<div id="result" style="height: 600px;width:500px;" class="ag-theme-alpine"></div>-->
 </div>
-<div id="addEditDialog" name="addEditDialog" class="modal" tabindex="-1" role="dialog">
+<div id="addEditDialog" name="addEditDialog" class="modal" tabindex="-1" role="dialog" align="center">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
