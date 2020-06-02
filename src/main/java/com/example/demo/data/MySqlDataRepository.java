@@ -18,7 +18,7 @@ public class MySqlDataRepository implements RestDataRepository {
     private Connection connection;
     private static final String connectionString = "jdbc:mysql://localhost:3306/" + Constants.SCHEMA_NAME;
     private static final String connectionUser = "root";
-    private static final String connectionPassword = "password";
+    private static final String connectionPassword = "passwo";
 
     public MySqlDataRepository() {
         try {
