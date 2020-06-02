@@ -1,5 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+*{
+    font-family: 'Comfortaa', cursive;
+}
+
 .button-ribbon {
     margin-bottom: 20px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #a86932;
+    border-color: #a86932;
+}
+
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #a86932;
+    border-color: #a86932;
 }
 
 body{
@@ -7,4 +24,19 @@ body{
     background-size: cover;
     width: 100%;
     height: 100vh;
+}
+
+.ag-theme-alpine {
+    /* use theme parameters where possible */
+    opacity: 75%;
+}
+
+.ag-theme-alpine .ag-root-wrapper {
+    border-radius: 8px;
+    background-color: burlywood;
+}
+
+.ag-header-cell-label {
+    justify-content: center;
+    margin-left: 15px;
 }
