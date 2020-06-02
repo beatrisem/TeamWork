@@ -38,7 +38,7 @@ body{
 /* form characteristics */
 .ag-theme-alpine .ag-root-wrapper {
     border-radius: 8px;
-    background-color: burlywood;
+    background-color: #c98f5d;
 }
 
 .ag-root-wrapper {
@@ -53,7 +53,7 @@ body{
 
 /*sort option menu characteristics*/
 .ag-filter-body-wrapper {
-    background-color: burlywood;
+    background-color:#c98f5d;
 }
 
 /*when selected certain cell from the form*/
