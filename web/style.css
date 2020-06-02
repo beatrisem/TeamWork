@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
 *{
     font-family: 'Comfortaa', cursive;
+    text-opacity: 100%;
 }
+
 
 html {
     height: 100%;
@@ -15,4 +18,3 @@ body {
 #map-canvas {
     height: 100%;
 }
-
