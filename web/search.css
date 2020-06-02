@@ -15,6 +15,7 @@ body{
     height: 100vh;
 }
 
+/* search bar */
 .wrapper{
     position: absolute;
     top: 50%;

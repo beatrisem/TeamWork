@@ -1,16 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
 *{
     font-family: 'Comfortaa', cursive;
+    text-opacity: 100%;
 }
 
 .button-ribbon {
     margin-bottom: 20px;
 }
 
+/*ptimary btn colors and borders*/
 .btn-primary {
     color: #fff;
     background-color: #a86932;
     border-color: #a86932;
+}
+/*primary btn when hovered and clicked on*/
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #6e4210;
+    border-color: #6e4210;
 }
 
 .btn-primary:disabled {
@@ -19,6 +27,7 @@
     border-color: #a86932;
 }
 
+/*body background picture*/
 body{
     background: url('cafe-search.jpg') no-repeat center;
     background-size: cover;
@@ -26,17 +35,28 @@ body{
     height: 100vh;
 }
 
-.ag-theme-alpine {
-    /* use theme parameters where possible */
-    opacity: 75%;
-}
-
+/* form characteristics */
 .ag-theme-alpine .ag-root-wrapper {
     border-radius: 8px;
     background-color: burlywood;
 }
 
+.ag-root-wrapper {
+    opacity: 80%;
+}
+
+/*centered header cell contents of form*/
 .ag-header-cell-label {
     justify-content: center;
     margin-left: 15px;
+}
+
+/*sort option menu characteristics*/
+.ag-filter-body-wrapper {
+    background-color: burlywood;
+}
+
+/*when selected certain cell from the form*/
+.ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+    border-color: #a86932;
 }
