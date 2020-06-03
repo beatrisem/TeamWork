@@ -19,24 +19,40 @@
     <script src="index.js"></script>
 </head>
 <body>
-<div class="container">
+<!--navigacija-->
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">-->
+    <a class="navbar-brand" href="#">SafeMeal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="search.html">Search</a>
+            <a class="nav-item nav-link active" href="index.html">All restaurants <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="map.html">Map </a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container" align="center">
     <div id="loader" style="visibility: hidden"><img src="progress.gif" style="width: 25px; height: 25px"></div>
     <div class="button-ribbon">
         <button type="button" class="btn btn-primary" onclick="showAddDialog();">Add</button>
         <button id="btnEdit" name="btnEdit" type="button" class="btn btn-primary" onclick="showEditDialog();">Edit
         </button>
     </div>
-    <div class="search-container">
-        <form action="/action_page.php">
-            <input type="text" placeholder="Search by keyword.." name="search">
-            <button type="button" class="btn btn-primary">Search</button>
-        </form>
-    </div>
+<!--    <div class="search-container">-->
+<!--        <form action="/action_page.php">-->
+<!--            <input type="text" placeholder="Search by keyword.." name="search">-->
+<!--            <button type="button" class="btn btn-primary">Search</button>-->
+<!--        </form>-->
+<!--    </div>-->
 
     <!--<div>-->
     <!--    <button onclick="showMessage()">Load data</button>-->
     <!--</div>-->
-    <div id="restResult" style="height: 600px;width:1000px;" class="ag-theme-alpine"></div>
+    <div id="restResult" style="height: 500px;width:1000px;" class="ag-theme-alpine"></div>
     <!--<div id="result" style="height: 600px;width:500px;" class="ag-theme-alpine"></div>-->
 </div>
 <div id="addEditDialog" name="addEditDialog" class="modal" tabindex="-1" role="dialog">
@@ -44,7 +60,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add/Edit restaurant</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" align="center">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

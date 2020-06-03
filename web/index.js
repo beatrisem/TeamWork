@@ -14,7 +14,7 @@ function selectionChanged() {
 
 function createRestaurantGrid() {
     let columnDefs = [
-        {headerName: "Id", field: "id", sortable: true, filter: true},
+        // {headerName: "Id", field: "id", sortable: true, filter: true},
         {headerName: "Name", field: "name", sortable: true, filter: true},
         {headerName: "City", field: "city", sortable: true, filter: true},
         {headerName: "Address", field: "address", sortable: true, filter: true},
