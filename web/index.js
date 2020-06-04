@@ -14,7 +14,7 @@ function selectionChanged() {
 
 function createRestaurantGrid() {
     let columnDefs = [
-       // {headerName: "Id", field: "id", sortable: true, filter: true},
+        // {headerName: "Id", field: "id", sortable: true, filter: true},
         {headerName: "Name", field: "name", sortable: true, filter: true},
         {headerName: "City", field: "city", sortable: true, filter: true},
         {headerName: "Address", field: "address", sortable: true, filter: true},
@@ -42,9 +42,11 @@ function showLoader(show) {
 }
 
 
-function addRestaurant() {
+function addOrUpdateRestaurant() {
+
+
     let restaurant = {
-        id: 0,
+        id: $('#hdId').val(),
         name: $('#txtName').val(),
         city: $('#txtCity').val(),
         address: $('#txtAddress').val(),
@@ -56,9 +58,17 @@ function addRestaurant() {
 
     };
 
+    let url = baseApiUrl + 'restaurants/';
+    let method = 'POST';
+
+    if(restaurant.id !== '0') {
+        url += restaurant.id;
+        method = 'PUT';
+    }
+
     let settings = {
-        "url": baseApiUrl + "restaurants/",
-        "method": "POST",
+        "url": url,
+        "method": method,
         "timeout": timeout,
         "headers": {
             "Content-Type": "application/json"
@@ -72,8 +82,10 @@ function addRestaurant() {
         console.log(response);
         showLoader(false);
         loadRestaurants();
+        enableDisableEditButton(false);
 
-        $('#txtName').val(''),
+            $('#hdId').val('');
+            $('#txtName').val(''),
             $('#txtCity').val(''),
             $('#txtAddress').val(''),
             $('#txtDistrict').val(''),
@@ -82,7 +94,9 @@ function addRestaurant() {
             $('#txtLat').val(''),
             $('#txtLng').val(''),
 
-        $('#addEditDialog').modal('hide')
+            $('#addEditDialog').modal('hide')
+
+
     });
 }
 
@@ -96,16 +110,20 @@ function loadRestaurants() {
 }
 
 function showAddDialog() {
-    $('#addEditDialog').modal('show')
+    $('#addEditDialog').modal('show');
+    $('#hdId').val(0);
 }
 
 function showEditDialog() {
 
     let selectedRows = restaurantGridOptions.api.getSelectedRows();
+
     if (selectedRows.length === 0) {
         return;
     }
+
     let id = selectedRows[0].id;
+    $('#hdId').val(id);
 
     var settings = {
         "url": baseApiUrl + "restaurants/" + id,

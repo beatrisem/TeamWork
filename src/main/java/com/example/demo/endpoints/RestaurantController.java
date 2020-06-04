@@ -47,6 +47,12 @@ public class RestaurantController {
     @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity<Restaurant> updateRestaurant(@RequestBody Restaurant restaurant, @PathVariable int id) {
+
+        if(id != restaurant.getId()) {
+            return new ResponseEntity("Id not the same", HttpStatus.BAD_REQUEST);
+        }
+
+
         var result = repo.updateRestaurant(restaurant);
         var res = repo.getById(Restaurant.class, id);
         return ResponseEntity.ok(res);
