@@ -36,6 +36,29 @@ public class Restaurant implements EntityBase {
         return "{call spDeleteRestaurant(?)}";
     }
 
+    @Override
+    public ValidationResult validate() {
+        var result = new ValidationResult();
+        if(name.isEmpty()) {
+            result.addError("Name is empty");
+        }
+
+        if(city.isEmpty()) {
+            result.addError("City is empty");
+        }
+
+        if(freeTables > maxTables){
+            result.addError("Exceeds maximum capacity");
+        }
+
+        if(freeTables < 0 || maxTables < 0){
+            result.addError("Table count must be a positive value");
+        }
+
+
+        return result;
+    }
+
 
     public static Restaurant createRestaurant(ResultSet rs) {
         Restaurant restaurant = null;

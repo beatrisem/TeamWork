@@ -94,10 +94,28 @@ function addOrUpdateRestaurant() {
             $('#txtLat').val(''),
             $('#txtLng').val(''),
 
-            $('#addEditDialog').modal('hide')
+            $('#addEditDialog').modal('hide');
+
+            showAlert(response.valid, response.errors);
 
 
     });
+}
+
+function showAlert(isSuccess, errors) {
+    let alert =  $('#alertBox');
+    alert.css('display', 'block');
+    if(isSuccess) {
+        alert.addClass('alert-success');
+        alert.removeClass('alert-danger');
+        $('#alertBox > p').text('Record changed!');
+    } else {
+        alert.removeClass('alert-success');
+        alert.addClass('alert-danger');
+        $('#alertBox > p').text("Some errors occured: " + errors);
+    }
+
+    setTimeout(function() { alert.css('display', 'none'); }, 5000);
 }
 
 function loadRestaurants() {

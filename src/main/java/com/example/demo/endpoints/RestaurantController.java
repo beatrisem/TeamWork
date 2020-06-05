@@ -39,23 +39,38 @@ public class RestaurantController {
 
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<Integer> addRestaurant(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<ValidationResultDto> addRestaurant(@RequestBody Restaurant restaurant) {
+        var result = restaurant.validate();
+
+        if(!result.isValid()) {
+            return new ResponseEntity(new ValidationResultDto(result, null), HttpStatus.OK);
+        }
+
         var newId = repo.addRestaurant(restaurant);
-        return ResponseEntity.ok(newId);
+        var newCity = repo.getById(Restaurant.class, newId);
+
+        return ResponseEntity.ok(new ValidationResultDto(result, newCity));
+
     }
 
     @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<Restaurant> updateRestaurant(@RequestBody Restaurant restaurant, @PathVariable int id) {
+    public ResponseEntity<ValidationResultDto> updateRestaurant(@RequestBody Restaurant restaurant, @PathVariable int id) {
 
         if(id != restaurant.getId()) {
-            return new ResponseEntity("Id not the same", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new ValidationResultDto("Url id does not match restaurant id"), HttpStatus.OK);
         }
 
+        var validationResult = restaurant.validate();
+
+        if(!validationResult.isValid()) {
+            return new ResponseEntity(new ValidationResultDto(validationResult, null), HttpStatus.OK);
+        }
 
         var result = repo.updateRestaurant(restaurant);
         var res = repo.getById(Restaurant.class, id);
-        return ResponseEntity.ok(res);
+
+        return ResponseEntity.ok(new ValidationResultDto(validationResult, res));
     }
 
 

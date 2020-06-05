@@ -13,5 +13,6 @@ public interface EntityBase {
         return null;
     }
     static String getDeleteByIdSql() {return null; }
+    ValidationResult validate();
 
 }
