@@ -41,10 +41,44 @@ function showLoader(show) {
     }
 }
 
+function initForm() {
+    $("#frmAddRest").validate( {
+        rules: {
+            txtName: "required",
+            txtCity: "required"
+        },
+        messages: {
+            txtName: "Name cannot be empty!",
+            txtCity: "City cannot be empty!"
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" );
 
-function addRestaurant() {
+            if ( element.prop( "type" ) === "checkbox" ) {
+                error.insertAfter( element.parent( "label" ) );
+            } else {
+                error.insertAfter( element );
+            }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+            $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+        },
+        submitHandler : function () {
+            addOrUpdateRestaurant();
+        }
+    } );
+}
+
+
+function addOrUpdateRestaurant() {
+
     let restaurant = {
-        id: 0,
+        id: $('#hdId').val(),
         name: $('#txtName').val(),
         city: $('#txtCity').val(),
         address: $('#txtAddress').val(),
@@ -56,9 +90,17 @@ function addRestaurant() {
 
     };
 
+    let url = baseApiUrl + 'restaurants/';
+    let method = 'POST';
+
+    if (restaurant.id !== '0') {
+        url += restaurant.id;
+        method = 'PUT';
+    }
+
     let settings = {
-        "url": baseApiUrl + "restaurants/",
-        "method": "POST",
+        "url": url,
+        "method": method,
         "timeout": timeout,
         "headers": {
             "Content-Type": "application/json"
@@ -72,20 +114,59 @@ function addRestaurant() {
         console.log(response);
         showLoader(false);
         loadRestaurants();
-
-        $('#txtName').val(''),
-            $('#txtCity').val(''),
-            $('#txtAddress').val(''),
-            $('#txtDistrict').val(''),
-            $('#txtFreeTables').val(''),
-            $('#txtMaxFreeTables').val(''),
-            $('#txtLat').val(''),
-            $('#txtLng').val(''),
-
-        $('#addEditDialog').modal('hide')
+        enableDisableEditButton(false);
 
 
+        if (response.valid) {
+            $('#hdId').val('');
+            $('#txtName').val(''),
+                $('#txtCity').val(''),
+                $('#txtAddress').val(''),
+                $('#txtDistrict').val(''),
+                $('#txtFreeTables').val(''),
+                $('#txtMaxFreeTables').val(''),
+                $('#txtLat').val(''),
+                $('#txtLng').val('')
+
+            $('#addEditDialog').modal('hide');
+
+            showAlert(response.valid, response.errors);
+        }else{
+            showModalError(true, response.errors);
+        }
+
+
+    }).fail(function (response) {
+        alert(response);
     });
+}
+
+function showModalError(show, errors) {
+    let errorAlert = $('#modal-error');
+    if(show) {
+        errorAlert.css('display', 'block');
+        $('#modal-error > p').text('Error: '+ errors);
+    } else {
+        errorAlert.css('display', 'none');
+    }
+}
+
+function showAlert(isSuccess, errors) {
+    let alert = $('#alertBox');
+    alert.css('display', 'block');
+    if (isSuccess) {
+        alert.addClass('alert-success');
+        alert.removeClass('alert-danger');
+        $('#alertBox > p').text('Record changed!');
+    } else {
+        alert.removeClass('alert-success');
+        alert.addClass('alert-danger');
+        $('#alertBox > p').text("Some errors occured: " + errors);
+    }
+
+    setTimeout(function () {
+        alert.css('display', 'none');
+    }, 5000);
 }
 
 function loadRestaurants() {
@@ -98,16 +179,22 @@ function loadRestaurants() {
 }
 
 function showAddDialog() {
-    $('#addEditDialog').modal('show')
+    showModalError(false, null);
+    $('#addEditDialog').modal('show');
+    $('#hdId').val(0);
+
 }
 
 function showEditDialog() {
-
+    showModalError(false, null);
     let selectedRows = restaurantGridOptions.api.getSelectedRows();
+
     if (selectedRows.length === 0) {
         return;
     }
+
     let id = selectedRows[0].id;
+    $('#hdId').val(id);
 
     var settings = {
         "url": baseApiUrl + "restaurants/" + id,
@@ -142,6 +229,8 @@ function enableDisableEditButton(enable) {
 
 
 $(document).ready(function () {
+
+    initForm();
 
     //createDemoGrid();
     createRestaurantGrid();
