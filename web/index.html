@@ -14,9 +14,9 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="./lib/typeahead/jquery.typeahead.min.css">
 
-
-    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 </head>
 
@@ -24,7 +24,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
     <a class="navbar-brand" href="index.html">SafeMeal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -37,10 +38,31 @@
 </nav>
 
 <div class="wrapper">
-    <input type="text" class="input"
-           placeholder="Name of restaurant, city or street">
-    <div class="searchbtn"><i class="fas fa-search"></i></div>
+    <div class="typeahead__query">
+        <input class="js-typeahead-car_v1" name="car_v1[query]" placeholder="Search by name" autocomplete="off">
+    </div>
+    <div class="typeahead__button">
+        <button type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
 </div>
+
+<!--The original search box from http://www.runningcoder.org/jquerytypeahead/demo/?car_v1%5Bquery%5D=maz-->
+<!--<form id="form-car_v1" name="form-car_v1">-->
+<!--    <div class="typeahead__container">-->
+<!--        <div class="typeahead__field">-->
+<!--            <div class="typeahead__query">-->
+<!--                <input class="js-typeahead-car_v1" name="car_v1[query]" placeholder="Search" autocomplete="off">-->
+<!--            </div>-->
+<!--            <div class="typeahead__button">-->
+<!--                <button type="submit">-->
+<!--                    <i class="typeahead__search-icon"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
 
 </body>
 </html>

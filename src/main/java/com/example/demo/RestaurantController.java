@@ -39,9 +39,9 @@ public class RestaurantController {
         return repo.getById(Restaurant.class, id);
     }
 
-    @GetMapping("/search/{name}")
-    public List<Restaurant> getRestaurantsByName(@PathVariable String name) {
-        return repo.getByName(name);
+    @GetMapping("/search/")
+    public List<Restaurant> getRestaurantsByName(@RequestParam String query) {
+        return repo.getByName(query);
     }
 
 

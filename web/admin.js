@@ -23,6 +23,7 @@ function createRestaurantGrid() {
         {headerName: "Max free tables", field: "maxTables", sortable: true, filter: true},
         {headerName: "Latitude", field: "lat", sortable: true, filter: true},
         {headerName: "Longitude", field: "lng", sortable: true, filter: true},
+        {headerName: "Username", field: "username", sortable: true, filter: true}
     ];
 
     restaurantGridOptions = {
@@ -87,6 +88,7 @@ function addOrUpdateRestaurant() {
         maxTables: $('#txtMaxFreeTables').val(),
         lat: $('#txtLat').val(),
         lng: $('#txtLng').val(),
+        username: $('#txtUsername').val(),
 
     };
 
@@ -126,7 +128,8 @@ function addOrUpdateRestaurant() {
                 $('#txtFreeTables').val(''),
                 $('#txtMaxFreeTables').val(''),
                 $('#txtLat').val(''),
-                $('#txtLng').val('')
+                $('#txtLng').val(''),
+                $('#txtUsername').val('')
 
             $('#addEditDialog').modal('hide');
 
@@ -210,6 +213,7 @@ function showEditDialog() {
         $('#txtMaxFreeTables').val(response.maxTables);
         $('#txtLat').val(response.lat);
         $('#txtLng').val(response.lng);
+        $('#txtUsername').val(response.lng);
 
         showLoader(false);
         $('#addEditDialog').modal('show')
