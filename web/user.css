@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+*{
+    font-family: 'Comfortaa', cursive;
+}
+
+body{
+    background: url('cafe-search.jpg') no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+table {
+    border-radius: 3px;
+    background-color: #c98f5d;
+    opacity: 80%;
+    margin-top: 30px;
+}
+
+#welcome {
+margin-top: 30px;
+}
+
