@@ -134,7 +134,7 @@
     <script language="javascript">
         function authenticateUser(username, password) {
             console.log("authenticating as " + username + ", " + password);
-            var xhr = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
