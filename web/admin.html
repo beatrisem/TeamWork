@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="admin.js"></script>
+</head>
+<body>
+<!--navigacija-->
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">-->
+    <a class="navbar-brand" href="#">SafeMeal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="search.html">Search</a>
+            <a class="nav-item nav-link" href="map.html">Map </a>
+            <a class="nav-item nav-link" href="index.html">Logout </a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container" align="center">
+    <div id="loader" style="visibility: hidden"><img src="progress.gif" style="width: 25px; height: 25px"></div>
+    <div id="alertBox" style="display: none" class="alert alert-dismissible fade show" role="alert">
+        <p></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="button-ribbon">
+        <button type="button" class="btn btn-primary" onclick="showAddDialog();">Add</button>
+        <button id="btnEdit" name="btnEdit" type="button" class="btn btn-primary" onclick="showEditDialog();">Edit
+        </button>
+    </div>
+    <!--    <div class="search-container">-->
+    <!--        <form action="/action_page.php">-->
+    <!--            <input type="text" placeholder="Search by keyword.." name="search">-->
+    <!--            <button type="button" class="btn btn-primary">Search</button>-->
+    <!--        </form>-->
+    <!--    </div>-->
+
+    <!--<div>-->
+    <!--    <button onclick="showMessage()">Load data</button>-->
+    <!--</div>-->
+    <div id="restResult" style="height: 500px;width:1000px;" class="ag-theme-alpine"></div>
+    <!--<div id="result" style="height: 600px;width:500px;" class="ag-theme-alpine"></div>-->
+</div>
+<div id="addEditDialog" name="addEditDialog" class="modal" tabindex="-1" role="dialog">
+    <form method="post" id="frmAddRest" name="frmAddRest" action="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add/Edit restaurant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" align="center">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-error" style="display: none" class="alert alert-dismissible fade show alert-danger"
+                         role="alert">
+                        <p></p>
+                    </div>
+
+                    <input type="hidden" id="hdId" name="hdId">
+                    <div class="form-group">
+                        <label for="txtName">Name: </label>
+                        <input type="text" id="txtName" name="txtName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCity">City: </label>
+                        <input type="text" id="txtCity" name="txtCity" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtAddress">Address: </label>
+                        <input type="text" id="txtAddress" name="txtAddress" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDistrict">District: </label>
+                        <input type="text" id="txtDistrict" name="txtDistrict" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtFreeTables">Free tables: </label>
+                        <input type="number" id="txtFreeTables" name="txtFreeTables" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtMaxFreeTables">Maximum capacity: </label>
+                        <input type="number" id="txtMaxFreeTables" name="txtMaxFreeTables" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLat">Latitude: </label>
+                        <input type="number" id="txtLat" name="txtLat" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLng">Longitude: </label>
+                        <input type="number" id="txtLng" name="txtLng" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>
