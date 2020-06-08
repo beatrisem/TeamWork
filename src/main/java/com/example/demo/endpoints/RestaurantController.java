@@ -109,9 +109,11 @@ public class RestaurantController {
     }
 
 
-    @PostMapping({"/login", "/api/login/"})
+    @PostMapping({"/login", "/login/"})
     public User login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
         return repo.getUserByUserNameAndPassword(username, password);
     }
+
+
 
 }

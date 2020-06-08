@@ -84,7 +84,7 @@ public class MySqlDataRepository implements RestDataRepository {
         try {
             connection = DriverManager.getConnection(connectionString, connectionUser,connectionPassword);
 
-            CallableStatement stmt = connection.prepareCall("{call rest_db.spAddRestaurant(?,?,?,?,?,?,?,?,?,?,?,?)}");
+            CallableStatement stmt = connection.prepareCall("{call spAddRestaurant(?,?,?,?,?,?,?,?,?,?,?,?)}");
             stmt.setString("name_rest", restaurant.getName());
             stmt.setString("city_rest", restaurant.getCity());
             stmt.setString("address_rest", restaurant.getAddress());
@@ -114,7 +114,7 @@ public class MySqlDataRepository implements RestDataRepository {
         try {
             connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
 
-            CallableStatement stmt = connection.prepareCall("{call rest_db.spUpdateRestaurant(?,?,?,?,?,?,?,?,?,?)}");
+            CallableStatement stmt = connection.prepareCall("{call spUpdateRestaurant(?,?,?,?,?,?,?,?,?,?)}");
             stmt.setInt(("id"), restaurant.getId());
             stmt.setString("restname", restaurant.getName());
             stmt.setString("city", restaurant.getCity());
@@ -303,7 +303,7 @@ public class MySqlDataRepository implements RestDataRepository {
         try {
             connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(User.SELECT_QUERY + " where username ='" + username + "' and password = '" + password + "'");
+            ResultSet rs = statement.executeQuery(User.SELECT_QUERY + " where username = '" + username + "' and password = '" + password + "'");
             if (rs.next()) {
                 user = User.createUser(rs);
             }

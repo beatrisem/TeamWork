@@ -133,7 +133,6 @@
 
     <script language="javascript">
         function authenticateUser(username, password) {
-            console.log("authenticating as " + username + ", " + password);
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -148,7 +147,7 @@
                     } else alert("Invalid username and password.")
                 }
             }
-            xhr.open("POST", 'http://localhost:8080/api/login', false);
+            xhr.open("POST", 'http://localhost:8080/api/restaurants/login', false);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send("username=" + username + "&password=" + password);
         }
