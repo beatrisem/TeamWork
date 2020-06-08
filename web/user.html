@@ -12,9 +12,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
-    <script src="user.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="user.js"></script>
 
     <link rel="stylesheet" href="user.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
@@ -22,7 +22,7 @@
 
 <body onload="loadRest()">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">SafeMeal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,45 +30,78 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="user.html">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="search.html">Search</a>
-            <a class="nav-item nav-link" href="admin.html">All restaurants </a>
+            <a class="nav-item nav-link" href="index.html">Search</a>
             <a class="nav-item nav-link" href="map.html">Map </a>
-            <a class="nav-item nav-link" href="login.html">Log out </a>
+            <a class="nav-item nav-link" href="index.html">Logout </a>
         </div>
     </div>
 </nav>
 
-<h1 id="welcome" align="center">Welcome, <div id="name">user!</div> </h1>
+<h1 id="welcome" align="center"><span >Welcome,&nbsp;</span><span id="name">user</span><span>!</span></h1>
 
-<table class="table table-sm table-hover table-dark" id="myTable" style="width:400px;" align="center">
+
+<br>
+<table class="table table-sm table-hover table-dark" id="myTable" style="width:420px;" align="center">
+
     <tbody>
     <tr>
-        <th scope="row" hidden>1</th>
-        <td>Title</td>
-        <td id="editname">Edit title</td>
+        <th scope="row"hidden>>Available tables</th>
+        <td>Available tables</td>
+        <td id="editfreetables">tables</td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-light" onclick="plusTable();">Plus free table</button>
+
+        </td>
+        <td>
+            <button type="button" class="btn btn-light" onclick="minusTable();">Minus free table</button>
+        </td>
+    </tr>
+
+    </tbody>
+
+
+    <tr>
+        <th scope="row"hidden>1</th>
+        <td>MaxTables</td>
+        <td id="editmaxtables">MaxTables</td>
     </tr>
     <tr>
         <th scope="row" hidden>2</th>
-        <td id="editaddress">Address</td>
-        <td>Edit address</td>
+        <td>Title</td>
+        <td id="editname">title</td>
     </tr>
     <tr>
         <th scope="row" hidden>3</th>
-        <td id="edithomepage">Homepage</td>
-        <td>Edit homepage</td>
+        <td>Address</td>
+        <td id="editaddress">adress</td>
     </tr>
+
     <tr>
         <th scope="row" hidden>4</th>
-        <td id="editphone">Phone</td>
-        <td>Edit phone</td>
+        <td>City</td>
+        <td id="editcity">city</td>
     </tr>
+
     <tr>
         <th scope="row" hidden>5</th>
-        <td>Free tables</td>
-        <td id="editfreetables">Edit tables</td>
+        <td>Homepage</td>
+        <td id="edithomepage">homepage</td>
     </tr>
+
+    <tr>
+        <th scope="row" hidden>6</th>
+        <td>Phone</td>
+        <td id="editphone">phone</td>
+    </tr>
+
     </tbody>
+
 </table>
+
+
+
 
 </body>
 </html>

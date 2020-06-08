@@ -7,10 +7,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class DemoApplication {
-
+public class RestServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(RestServiceApplication.class, args);
     }
 
     @Bean
@@ -18,10 +17,9 @@ public class DemoApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").
-                        allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH");
+                registry.addMapping("/**")
+                        .allowedMethods("HEAD","GET","POST","PUT","DELETE","PATCH");
             }
         };
     }
-
 }

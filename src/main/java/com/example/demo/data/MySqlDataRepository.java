@@ -14,9 +14,9 @@ import java.sql.Types;
 public class MySqlDataRepository implements RestDataRepository {
 
     private Connection connection;
-    private static final String connectionString = "jdbc:mysql://localhost:3306/rest_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String connectionString = "jdbc:mysql://localhost:3306/";
     private static final String connectionUser = "root";
-    private static final String connectionPassword = "Admin12345*";
+    private static final String connectionPassword = "utkkfxrfNEW21";
 
     public MySqlDataRepository() {
         try {

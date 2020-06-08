@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.endpoints;
 
+import com.example.demo.ValidationResultDto;
 import com.example.demo.data.MySqlDataRepository;
 import com.example.demo.data.RestDataRepository;
 import com.example.demo.data.Restaurant;
@@ -18,7 +19,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/restaurants", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -39,10 +42,28 @@ public class RestaurantController {
         return repo.getById(Restaurant.class, id);
     }
 
-    @GetMapping("/search/")
-    public List<Restaurant> getRestaurantsByName(@RequestParam String query) {
-        return repo.getByName(query);
+    @GetMapping("/search/{name}")
+    public List<Restaurant> getRestaurantsByName(@PathVariable("name")  String name) {
+        return repo.getByName(name);
     }
+
+//    @PostMapping("/names")
+//    public List<String> getRestNames() {
+//        var result = repo.getList(Restaurant.class);
+//        return result.stream().map(m->m.getName()).collect(Collectors.toList());
+//    }
+
+    @GetMapping("/filtered")
+    public List<Restaurant> getRestaurantsFiltered(@RequestParam String query) {
+        var result = repo.getList(Restaurant.class);
+
+        if(!query.isEmpty()) {
+            return result.stream().filter(s->s.getName().toLowerCase().startsWith(query.toLowerCase())).collect(Collectors.toList());
+        }
+
+        return result;
+    }
+
 
 
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -79,6 +100,18 @@ public class RestaurantController {
         var res = repo.getById(Restaurant.class, id);
 
         return ResponseEntity.ok(new ValidationResultDto(validationResult, res));
+    }
+
+
+    @GetMapping("/user/{username}")
+    public Restaurant getByUserName(@PathVariable String username) {
+        return repo.getByUserName(username);
+    }
+
+
+    @PostMapping({"/login", "/api/login/"})
+    public User login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+        return repo.getUserByUserNameAndPassword(username, password);
     }
 
 }

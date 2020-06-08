@@ -14,7 +14,7 @@ function selectionChanged() {
 
 function createRestaurantGrid() {
     let columnDefs = [
-        // {headerName: "Id", field: "id", sortable: true, filter: true},
+        //    {headerName: "Id", field: "id", sortable: true, filter: true},
         {headerName: "Name", field: "name", sortable: true, filter: true},
         {headerName: "City", field: "city", sortable: true, filter: true},
         {headerName: "Address", field: "address", sortable: true, filter: true},
@@ -23,6 +23,8 @@ function createRestaurantGrid() {
         {headerName: "Max free tables", field: "maxTables", sortable: true, filter: true},
         {headerName: "Latitude", field: "lat", sortable: true, filter: true},
         {headerName: "Longitude", field: "lng", sortable: true, filter: true},
+        {headerName: "Homepage", field: "homepage", sortable: true, filter: true},
+        {headerName: "Phone", field: "phone", sortable: true, filter: true},
         {headerName: "Username", field: "username", sortable: true, filter: true}
     ];
 
@@ -43,7 +45,7 @@ function showLoader(show) {
 }
 
 function initForm() {
-    $("#frmAddRest").validate( {
+    $("#frmAddRest").validate({
         rules: {
             txtName: "required",
             txtCity: "required"
@@ -53,26 +55,26 @@ function initForm() {
             txtCity: "City cannot be empty!"
         },
         errorElement: "em",
-        errorPlacement: function ( error, element ) {
+        errorPlacement: function (error, element) {
             // Add the `help-block` class to the error element
-            error.addClass( "help-block" );
+            error.addClass("help-block");
 
-            if ( element.prop( "type" ) === "checkbox" ) {
-                error.insertAfter( element.parent( "label" ) );
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
             } else {
-                error.insertAfter( element );
+                error.insertAfter(element);
             }
         },
-        highlight: function ( element, errorClass, validClass ) {
-            $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
         },
         unhighlight: function (element, errorClass, validClass) {
-            $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+            $(element).addClass("is-valid").removeClass("is-invalid");
         },
-        submitHandler : function () {
+        submitHandler: function () {
             addOrUpdateRestaurant();
         }
-    } );
+    });
 }
 
 
@@ -86,6 +88,8 @@ function addOrUpdateRestaurant() {
         district: $('#txtDistrict').val(),
         freeTables: $('#txtFreeTables').val(),
         maxTables: $('#txtMaxFreeTables').val(),
+        phone: $('#txtPhone').val(),
+        homepage: $('#txtHomepage').val(),
         lat: $('#txtLat').val(),
         lng: $('#txtLng').val(),
         username: $('#txtUsername').val(),
@@ -120,21 +124,13 @@ function addOrUpdateRestaurant() {
 
 
         if (response.valid) {
-            $('#hdId').val('');
-            $('#txtName').val(''),
-                $('#txtCity').val(''),
-                $('#txtAddress').val(''),
-                $('#txtDistrict').val(''),
-                $('#txtFreeTables').val(''),
-                $('#txtMaxFreeTables').val(''),
-                $('#txtLat').val(''),
-                $('#txtLng').val(''),
-                $('#txtUsername').val('')
+
+            clearAddEditForm();
 
             $('#addEditDialog').modal('hide');
 
             showAlert(response.valid, response.errors);
-        }else{
+        } else {
             showModalError(true, response.errors);
         }
 
@@ -144,11 +140,28 @@ function addOrUpdateRestaurant() {
     });
 }
 
+function clearAddEditForm() {
+    $('#txtName').val('');
+    $('#txtCity').val('');
+    $('#txtAddress').val('');
+    $('#txtDistrict').val('');
+    $('#txtFreeTables').val('');
+    $('#txtMaxFreeTables').val('');
+    $('#txtHomepage').val('');
+    $('#txtPhone').val('');
+    $('#txtLat').val('');
+    $('#txtLng').val('');
+    $('#txtUsername').val('');
+
+
+}
+
+
 function showModalError(show, errors) {
     let errorAlert = $('#modal-error');
-    if(show) {
+    if (show) {
         errorAlert.css('display', 'block');
-        $('#modal-error > p').text('Error: '+ errors);
+        $('#modal-error > p').text('Error: ' + errors);
     } else {
         errorAlert.css('display', 'none');
     }
@@ -207,13 +220,16 @@ function showEditDialog() {
 
     $.ajax(settings).done(function (response) {
         $('#txtName').val(response.name);
+        $('#txtCity').val(response.city);
         $('#txtAddress').val(response.address);
         $('#txtDistrict').val(response.district);
         $('#txtFreeTables').val(response.freeTables);
         $('#txtMaxFreeTables').val(response.maxTables);
+        $('#txtPhone').val(response.phone);
+        $('#txtHomepage').val(response.homepage);
         $('#txtLat').val(response.lat);
         $('#txtLng').val(response.lng);
-        $('#txtUsername').val(response.lng);
+        $('#txtUsername').val(response.username);
 
         showLoader(false);
         $('#addEditDialog').modal('show')
@@ -231,8 +247,70 @@ function enableDisableEditButton(enable) {
     }
 }
 
+function loadRestaurantsFiltered(restaurantName) {
+    showLoader(true);
+
+    agGrid.simpleHttpRequest({url: baseApiUrl + 'restaurants/search/' + restaurantName}).then(function (data) {
+        restaurantGridOptions.api.setRowData(data);
+        showLoader(false);
+    });
+}
+
+
+function initTypeahead() {
+    $.typeahead({
+        input: '.js-typeahead-car_v1',
+        minLength: 1,
+        order: "asc",
+        offset: true,
+        hint: true,
+        dynamic: true,
+        delay: 300,
+        template: '<span>' +
+            '<br><span class="name">{{name}}</span></br>' +
+            '<span class="city">{{city}},&nbsp;</span>' +
+            '<span class="address">{{address}}' +
+            '</span>',
+        source: {
+            restaurants: {
+                display: ["name", "city", "address"],
+                ajax: function (query) {
+                    return {
+                        type: "GET",
+                        url: baseApiUrl + "restaurants/filtered",
+                        data: {
+                            query: "{{query}}"
+                        },
+
+                    }
+                }
+
+            }
+
+        },
+        onResult: function (node, query, result, resultCount) {
+            console.log(query);
+            console.log(result);
+        },
+        callback: {
+            onClick: function (node, a, item, event) {
+                //loadCitiesFiltered(item.id);
+                if (item === null) {
+                    loadRestaurants();
+                } else {
+                    loadRestaurantsFiltered(item.name);
+                }
+            },
+            onSubmit: function (node, form, item, event) {
+
+            }
+        }
+    });
+}
+
 
 $(document).ready(function () {
+
 
     initForm();
 
@@ -248,5 +326,7 @@ $(document).ready(function () {
     new agGrid.Grid(restGridDiv, restaurantGridOptions);
 
     loadRestaurants();
+
+    initTypeahead();
 
 });

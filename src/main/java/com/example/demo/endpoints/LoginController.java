@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.endpoints;
 
 import com.example.demo.data.MySqlDataRepository;
 import com.example.demo.data.RestDataRepository;
