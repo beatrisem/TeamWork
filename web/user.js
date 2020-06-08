@@ -1,6 +1,33 @@
 const baseApiUrl = 'http://localhost:8080/api/';
 const timeout = 3000;
 
+function editField() {
+    $('.editbtn').click(function () {
+        var currentTD = $(this).parents('tr').find('td');
+
+        if ($(this).text().trim() == 'Edit') {
+            currentTD = $(this).parents('tr').find($("td").not(":nth-child(1)"));
+            $.each(currentTD, function () {
+                $(this).prop('contenteditable', true).css({
+                    'background': '#fff',
+                    'color': '#000'
+                })
+            });
+        } else {
+            $.each(currentTD, function () {
+                $(this).prop('contenteditable', false).removeAttr("style");
+            });
+        }
+
+        $(this).html($(this).html() == 'Edit' ? 'Save' : 'Edit')
+        if ($(this).html() == 'Save') {
+            updateRestaurant();
+            $(this).prop('contenteditable', false)
+        }
+    });
+};
+
+
 function loadRest() {
     var urlParams = new URLSearchParams(window.location.search);
     var xhr = new XMLHttpRequest();
@@ -68,12 +95,10 @@ function loadRest() {
     }
     xhr.open("GET", baseApiUrl + 'restaurants/user/' + urlParams.get('user'), false);
     xhr.send(null);
-
 }
 
+    $(document).ready(function () {
+        loadRest();
+        editField();
 
-$(document).ready(function () {
-    loadRest();
-
-
-});
+    });

@@ -133,8 +133,6 @@ function addOrUpdateRestaurant() {
         } else {
             showModalError(true, response.errors);
         }
-
-
     }).fail(function (response) {
         alert(response);
     });

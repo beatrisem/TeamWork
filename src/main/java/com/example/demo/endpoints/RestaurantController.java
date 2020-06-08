@@ -113,7 +113,4 @@ public class RestaurantController {
     public User login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
         return repo.getUserByUserNameAndPassword(username, password);
     }
-
-
-
 }
