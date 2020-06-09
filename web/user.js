@@ -117,10 +117,6 @@ function loadRest() {
     xhr.send(null);
 }
 
-function editRestaurant() {
-
-}
-
 
 $(document).ready(function () {
     loadRest();
