@@ -117,7 +117,6 @@ function addOrUpdateRestaurant() {
     showLoader(true);
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
         showLoader(false);
         loadRestaurants();
         enableDisableEditButton(false);
@@ -133,8 +132,6 @@ function addOrUpdateRestaurant() {
         } else {
             showModalError(true, response.errors);
         }
-
-
     }).fail(function (response) {
         alert(response);
     });
@@ -284,26 +281,16 @@ function initTypeahead() {
 
                     }
                 }
-
             }
-
-        },
-        onResult: function (node, query, result, resultCount) {
-            console.log(query);
-            console.log(result);
         },
         callback: {
             onClick: function (node, a, item, event) {
-                //loadCitiesFiltered(item.id);
                 if (item === null) {
                     loadRestaurants();
                 } else {
                     loadRestaurantsFiltered(item.name);
                 }
             },
-            onSubmit: function (node, form, item, event) {
-
-            }
         }
     });
 }
@@ -314,15 +301,10 @@ $(document).ready(function () {
 
     initForm();
 
-    //createDemoGrid();
     createRestaurantGrid();
 
-    // lookup the container we want the Grid to use
-    // let eGridDiv = document.querySelector('#result');
     let restGridDiv = document.querySelector('#restResult');
 
-    // create the grid passing in the div to use together with the columns & data we want to use
-    // new agGrid.Grid(eGridDiv, gridOptions);
     new agGrid.Grid(restGridDiv, restaurantGridOptions);
 
     loadRestaurants();

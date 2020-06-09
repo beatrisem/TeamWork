@@ -110,10 +110,11 @@ public class RestaurantController {
 
 
     @PostMapping({"/login", "/login/"})
-    public User login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
-        return repo.getUserByUserNameAndPassword(username, password);
+    public ResponseEntity<User> login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+        User user = repo.getUserByUserNameAndPassword(username, password);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-
-
-
 }

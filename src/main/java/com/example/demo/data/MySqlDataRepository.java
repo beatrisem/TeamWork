@@ -14,7 +14,7 @@ import java.sql.Types;
 public class MySqlDataRepository implements RestDataRepository {
 
     private Connection connection;
-    private static final String connectionString = "jdbc:mysql://localhost:3306/";
+    private static final String connectionString = "jdbc:mysql://localhost:3306/rest_db";
     private static final String connectionUser = "root";
     private static final String connectionPassword = "utkkfxrfNEW21";
 

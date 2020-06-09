@@ -16,6 +16,12 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="user.js"></script>
 
+    <script src="assets/js/bootstrap-table-editable.js"></script>
+
+    <script>
+
+    </script>
+
     <link rel="stylesheet" href="user.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 </head>
@@ -24,7 +30,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">SafeMeal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -37,70 +44,79 @@
     </div>
 </nav>
 
-<h1 id="welcome" align="center"><span >Welcome,&nbsp;</span><span id="name">user</span><span>!</span></h1>
+<h1 id="welcome" align="center"><span>Welcome,&nbsp;</span><span id="name">user</span><span>!</span></h1>
 
 
 <br>
+
+<form method="PUT">
 <table class="table table-sm table-hover table-dark" id="myTable" style="width:420px;" align="center">
 
     <tbody>
     <tr>
-        <th scope="row"hidden>>Available tables</th>
-        <td>Available tables</td>
-        <td id="editfreetables">tables</td>
-    </tr>
-    <tr>
+        <th scope="row" hidden>1</th>
+        <th>Available tables</th>
+        <td id="editfreetables" class="editable">edit</td>
         <td>
-            <button type="button" class="btn btn-light" onclick="plusTable();">Plus free table</button>
-
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
         </td>
-        <td>
-            <button type="button" class="btn btn-light" onclick="minusTable();">Minus free table</button>
-        </td>
-    </tr>
-
-    </tbody>
-
-
-    <tr>
-        <th scope="row"hidden>1</th>
-        <td>MaxTables</td>
-        <td id="editmaxtables">MaxTables</td>
     </tr>
     <tr>
         <th scope="row" hidden>2</th>
-        <td>Title</td>
-        <td id="editname">title</td>
+        <th>MaxTables</th>
+        <td id="editmaxtables" class="editable">MaxTables</td>
+        <td>
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
+        </td>
     </tr>
     <tr>
         <th scope="row" hidden>3</th>
-        <td>Address</td>
-        <td id="editaddress">adress</td>
+        <th>Title</th>
+        <td id="editname" class="editable">title</td>
+        <td>
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
+        </td>
     </tr>
-
     <tr>
         <th scope="row" hidden>4</th>
-        <td>City</td>
-        <td id="editcity">city</td>
+        <th>Address</th>
+        <td id="editaddress" class="editable">adress</td>
+        <td>
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
+        </td>
     </tr>
 
     <tr>
         <th scope="row" hidden>5</th>
-        <td>Homepage</td>
-        <td id="edithomepage">homepage</td>
+        <th>City</th>
+        <td id="editcity" class="editable">city</td>
+        <td>
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
+        </td>
     </tr>
 
     <tr>
         <th scope="row" hidden>6</th>
-        <td>Phone</td>
-        <td id="editphone">phone</td>
+        <th>Homepage</th>
+        <td id="edithomepage" class="editable">homepage</td>
+        <td>
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
+        </td>
+    </tr>
+
+    <tr>
+        <th scope="row" hidden>7</th>
+        <th>Phone</th>
+        <td id="editphone" class="editable">phone</td>
+        <td>
+            <button type="button" class="btn btn-primary editbtn">Edit</button>
+        </td>
     </tr>
 
     </tbody>
 
 </table>
-
-
+</form>
 
 
 </body>

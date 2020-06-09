@@ -36,14 +36,8 @@ function initTypeahead() {
             }
 
         },
-        onResult: function (node, query, result, resultCount) {
-            console.log(query);
-            console.log(result);
-        },
         callback: {
             onClick: function (node, a, item, event) {
-                //loadCitiesFiltered(item.id);
-                console.log(item);
                 document.getElementById("match-name").innerHTML = item.name;
                 document.getElementById("match-city").innerHTML = item.city;
                 document.getElementById("match-address").style.visibility = 'visible';
@@ -51,12 +45,6 @@ function initTypeahead() {
                 document.getElementById("match-tables").style.visibility = 'visible';
                 document.getElementById("match-tables").innerHTML += item.freeTables;
             },
-            // onSubmit: function (node, form, item, event) {
-            //     document.getElementById("match-name").innerHTML = item.name;
-            //     document.getElementById("match-address").style.visibility = 'visible';
-            //     document.getElementById("match-address").innerHTML += item.address;
-            //     document.getElementById("match-tables").innerHTML = item.freeTables;
-            // }
         }
     });
 }
