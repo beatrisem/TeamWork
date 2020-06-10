@@ -1,33 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
 *{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
     font-family: 'Comfortaa', cursive;
-    text-opacity: 100%;
 }
 
-.button-ribbon {
-    margin-bottom: 20px;
-}
-
-/*ptimary btn colors and borders*/
-.btn-primary {
-    color: #fff;
-    background-color: #a86932;
-    border-color: #a86932;
-}
-/*primary btn when hovered and clicked on*/
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
-    color: #fff;
-    background-color: #6e4210;
-    border-color: #6e4210;
-}
-
-.btn-primary:disabled {
-    color: #fff;
-    background-color: #a86932;
-    border-color: #a86932;
-}
-
-/*body background picture*/
 body{
     background: url('cafe-search.jpg') no-repeat center;
     background-size: cover;
@@ -35,28 +15,43 @@ body{
     height: 100vh;
 }
 
-/* form characteristics */
-.ag-theme-alpine .ag-root-wrapper {
+/* search bar */
+.wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0,0.6);
+    max-width: 550px;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.wrapper .js-typeahead-car_v1 {
+    width: 190%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.typeahead__button {
+    background: #a86932;
+    width: 10%;
     border-radius: 8px;
-    background-color: #c98f5d;
+    position: relative;
+    cursor: pointer;
 }
 
-.ag-root-wrapper {
-    opacity: 80%;
+.typeahead__button .fas{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
 }
 
-/*centered header cell contents of form*/
-.ag-header-cell-label {
-    justify-content: center;
-    margin-left: 15px;
-}
-
-/*sort option menu characteristics*/
-.ag-filter-body-wrapper {
-    background-color:#c98f5d;
-}
-
-/*when selected certain cell from the form*/
-.ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
-    border-color: #a86932;
-}

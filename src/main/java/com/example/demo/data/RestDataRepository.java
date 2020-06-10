@@ -5,13 +5,16 @@ import java.util.List;
 public interface RestDataRepository {
 
     <T extends EntityBase> List<T> getList(Class<T> item);
+
     <T extends EntityBase> T getById(Class<T> item, int id);
+
     <T extends EntityBase> void deleteById(Class<T> item, int id);
 
     int addRestaurant(Restaurant restaurant);
 
     int updateRestaurant(Restaurant restaurant);
 
+    int addUser(User user);
 
     List<Restaurant> getRestaurants();
 
@@ -23,5 +26,12 @@ public interface RestDataRepository {
 
     List<Restaurant> getByName(String name);
 
+    User getUserByUserName(String name);
+
+    Restaurant getByUserName(String name);
+
+    User getUserByUserNameAndPassword(String name, String password);
+
     void updateFreeTableCount(Restaurant rest, int count);
+
 }

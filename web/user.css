@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
-
 *{
     font-family: 'Comfortaa', cursive;
-    text-opacity: 100%;
 }
 
 body{
@@ -12,17 +10,15 @@ body{
     height: 100vh;
 }
 
-#map-div {
-    height: 70%;
-    width: 70%;
-    padding: 0;
-    margin: 100px;
+table {
+    border-radius: 3px;
+    background-color: #c98f5d;
+    opacity: 80%;
+    margin-top: 30px;
 }
 
-#map-canvas {
-    height: 100%;
-}
-
-.map-info {
-    color: white;
+#welcome {
+    color: #fff;
+    border-radius: 3px;
+    margin-top: 30px;
 }

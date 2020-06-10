@@ -1,17 +1,15 @@
 package com.example.demo.endpoints;
 
-
-import com.example.demo.data.MySqlDataRepository;
-import com.example.demo.data.RestDataRepository;
-import com.example.demo.data.Restaurant;
+import com.example.demo.ValidationResultDto;
+import com.example.demo.data.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/restaurants", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -32,10 +30,29 @@ public class RestaurantController {
         return repo.getById(Restaurant.class, id);
     }
 
-    @GetMapping("search/{name}")
-    public List<Restaurant> getRestaurantsByName(@PathVariable String name) {
+    @GetMapping("/search/{name}")
+    public List<Restaurant> getRestaurantsByName(@PathVariable("name")  String name) {
         return repo.getByName(name);
     }
+
+//    @PostMapping("/names")
+//    public List<String> getRestNames() {
+//        var result = repo.getList(Restaurant.class);
+//        return result.stream().map(m->m.getName()).collect(Collectors.toList());
+//    }
+
+    @GetMapping("/filtered")
+    public List<Restaurant> getRestaurantsFiltered(@RequestParam String query) {
+        var result = repo.getList(Restaurant.class);
+
+        if(!query.isEmpty()) {
+            return result.stream().filter(s->s.getName().toLowerCase().startsWith(query.toLowerCase())).collect(Collectors.toList());
+        }
+
+        return result;
+    }
+
+
 
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -47,9 +64,9 @@ public class RestaurantController {
         }
 
         var newId = repo.addRestaurant(restaurant);
-        var newCity = repo.getById(Restaurant.class, newId);
+        var newRest = repo.getById(Restaurant.class, newId);
 
-        return ResponseEntity.ok(new ValidationResultDto(result, newCity));
+        return ResponseEntity.ok(new ValidationResultDto(result, newRest));
 
     }
 
@@ -74,4 +91,26 @@ public class RestaurantController {
     }
 
 
+    @GetMapping("/user/{username}")
+    public Restaurant getByUserName(@PathVariable String username) {
+        return repo.getByUserName(username);
+    }
+
+
+    @PostMapping({"/login", "/login/"})
+    public ResponseEntity<User> login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+        User user = repo.getUserByUserNameAndPassword(username, password);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping(value = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Integer> addUser(@RequestBody User user) {
+        var user_id = repo.addUser(user);
+        //return new ResponseEntity(user_id, HttpStatus.OK);
+        return ResponseEntity.ok(user_id);
+    }
 }

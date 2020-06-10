@@ -18,6 +18,7 @@ public class Restaurant implements EntityBase {
     private BigDecimal lng;
     private String homepage;
     private String phone;
+    private String username;
 
 
     public static String getSelectSql() {
@@ -35,6 +36,7 @@ public class Restaurant implements EntityBase {
     public static String getDeleteByIdSql() {
         return "{call spDeleteRestaurant(?)}";
     }
+
 
     @Override
     public ValidationResult validate() {
@@ -55,7 +57,6 @@ public class Restaurant implements EntityBase {
             result.addError("Table count must be a positive value");
         }
 
-
         return result;
     }
 
@@ -73,7 +74,8 @@ public class Restaurant implements EntityBase {
                     rs.getBigDecimal("lat_rest"),
                     rs.getBigDecimal("lng_rest"),
                     rs.getString("homepage_rest"),
-                    rs.getString("phone_rest"));
+                    rs.getString("phone_rest"),
+                    rs.getString("username_rest"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +83,7 @@ public class Restaurant implements EntityBase {
         return restaurant;
     }
 
-    public Restaurant(int id, String name, String city, String address, String district, int freeTables, int maxTables, BigDecimal lat, BigDecimal lng, String homepage, String phone) {
+    public Restaurant(int id, String name, String city, String address, String district, int freeTables, int maxTables, BigDecimal lat, BigDecimal lng, String homepage, String phone, String username) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -93,6 +95,7 @@ public class Restaurant implements EntityBase {
         this.lng = lng;
         this.homepage = homepage;
         this.phone = phone;
+        this.username = username;
     }
 
     public int getId() {
@@ -183,6 +186,14 @@ public class Restaurant implements EntityBase {
         this.phone = phone;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -197,6 +208,7 @@ public class Restaurant implements EntityBase {
                 ", lng=" + lng +
                 ", homepage='" + homepage + '\'' +
                 ", phone='" + phone + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Register</title>
+
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
+        @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+
+        .body {
+            position: fixed;
+            overflow-y: scroll;
+            width: 100%;
+            top: -20px;
+            left: -20px;
+            right: -40px;
+            bottom: -40px;
+            width: auto;
+            height: auto;
+            background-image: url(cafe-search.jpg);
+            background-size: cover;
+            -webkit-filter: blur(0px);
+
+        }
+
+
+        .header {
+            position: absolute;
+            top: calc(50% - 35px);
+            left: calc(30% - 255px);
+
+        }
+
+        .header div {
+            float: left;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 40px;
+            font-weight: 200;
+        }
+
+        .header div span {
+            color: #F29E20 !important;
+        }
+
+        .register {
+            position: absolute;
+            top: calc(50% - 75px);
+            left: calc(45% - 50px);
+            background: rgba(0, 0, 0, 0.6);
+            height: 150px;
+            width: 260px;
+            padding: 10px;
+
+        }
+
+        .register input[type=text] {
+            width: 250px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 2px;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 4px;
+        }
+
+        .register input[type=password] {
+            width: 250px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 2px;
+            color: #fff;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 4px;
+            margin-top: 10px;
+        }
+
+        .register input[type=button] {
+            width: 260px;
+            height: 35px;
+            background: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            border-radius: 2px;
+            color: #a18d6c;
+            font-family: 'Exo', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 6px;
+            margin-top: 10px;
+        }
+
+        .register input[type=button]:hover {
+            opacity: 0.8;
+        }
+
+        .register input[type=button]:active {
+            opacity: 0.6;
+        }
+
+        .register input[type=text]:focus {
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .register input[type=password]:focus {
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .register input[type=button]:focus {
+            outline: none;
+        }
+
+        ::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        ::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <script src="register.js"></script>
+
+
+    <!--    <script language="javascript">-->
+    <!--        -->
+
+    <!--        // function makeUser(username, password) {-->
+    <!--        //     let xhr = new XMLHttpRequest();-->
+    <!--        //     xhr.onreadystatechange = function () {-->
+    <!--        //         if (xhr.readyState === XMLHttpRequest.DONE) {-->
+    <!--        //             if (xhr.status === 200) {-->
+    <!--        //                     window.open('admin.html');-->
+    <!--        //             } else alert("Invalid username and password.")-->
+    <!--        //         }-->
+    <!--        //     }-->
+    <!--        //     xhr.open("POST", 'http://localhost:8080/api/restaurants/register', false);-->
+    <!--        //     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");-->
+    <!--        //}-->
+
+    <!--    </script>-->
+</head>
+
+<!--<body oncontextmenu="return false">-->
+<body>
+
+<!--<div class="body"></div>-->
+<!--<div class="grad"></div>-->
+<!--<div class="header">-->
+<!--    <div>Safe<span>Meal</span></div>-->
+<!--</div>-->
+<!--<br>-->
+
+
+<!--<div class="register">-->
+<!--    <form method="post" id="frmAddUser" name="frmAddUser" action="">-->
+<!--        <input type="text" id="txtUsername" name="txtUsername" class="form-control" placeholder="Username" required><br>-->
+<!--        <input type="password" id="txtPassword" name="txtPassword" class="form-control" placeholder="Password" required><br>-->
+<!--        &lt;!&ndash;        <input type="button" id="btnRegister" value="Register"/>&ndash;&gt;-->
+<!--        <button type="submit" class="btn btn-primary">Register</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+</div>
+<div id="addUserDialog" name="addUserDialog" class="modal" tabindex="-1" role="dialog">
+    <form method="post" id="frmAddUser" name="frmAddUser" action="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <input type="hidden" id="hdId" name="hdId">
+                    <div class="form-group">
+                        <label for="txtUsername">Userame: </label>
+                        <input type="text" id="txtUsername" name="txtUsername" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPassword">Password: </label>
+                        <input type="text" id="txtPassword" name="txtPassword" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -1,7 +1,5 @@
 package com.example.demo.data;
 
-import java.math.BigDecimal;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.CallableStatement;
@@ -33,7 +31,7 @@ public class MySqlDataRepository implements RestDataRepository {
     public <T extends EntityBase> List<T> getList(Class<T> cl) {
         List<T> items = new ArrayList<>();
         try {
-            connection = DriverManager.getConnection(connectionString, connectionUser,connectionPassword);
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
             Statement statement = connection.createStatement();
 
             var getSqlQueryMethod = cl.getMethod("getSelectSql");
@@ -42,7 +40,7 @@ public class MySqlDataRepository implements RestDataRepository {
             ResultSet rs = statement.executeQuery(sql.toString());
             var createObjectMethod = cl.getMethod("getEntity", ResultSet.class);
 
-            while(rs.next()) {
+            while (rs.next()) {
 
                 items.add((T) createObjectMethod.invoke(null, rs));
             }
@@ -59,7 +57,7 @@ public class MySqlDataRepository implements RestDataRepository {
     @Override
     public <T extends EntityBase> T getById(Class<T> cl, int id) {
         try {
-            connection = DriverManager.getConnection(connectionString, connectionUser,connectionPassword);
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
 
             var getSqlQueryMethod = cl.getMethod("getSelectByIdSql");
             var sql = getSqlQueryMethod.invoke(null);
@@ -86,7 +84,7 @@ public class MySqlDataRepository implements RestDataRepository {
         try {
             connection = DriverManager.getConnection(connectionString, connectionUser,connectionPassword);
 
-            CallableStatement stmt = connection.prepareCall("{call spAddRestaurant(?,?,?,?,?,?,?,?,?,?,?)}");
+            CallableStatement stmt = connection.prepareCall("{call spAddRestaurant(?,?,?,?,?,?,?,?,?,?,?,?)}");
             stmt.setString("name_rest", restaurant.getName());
             stmt.setString("city_rest", restaurant.getCity());
             stmt.setString("address_rest", restaurant.getAddress());
@@ -97,6 +95,7 @@ public class MySqlDataRepository implements RestDataRepository {
             stmt.setBigDecimal("lat_rest", restaurant.getLat());
             stmt.setString("homepage_rest", restaurant.getHomepage());
             stmt.setString("phone_rest", restaurant.getPhone());
+            stmt.setString("username_rest", restaurant.getUsername());
             stmt.registerOutParameter("id_rest", Types.INTEGER);
             stmt.execute();
 
@@ -113,7 +112,7 @@ public class MySqlDataRepository implements RestDataRepository {
     @Override
     public int updateRestaurant(Restaurant restaurant) {
         try {
-            connection = DriverManager.getConnection(connectionString, connectionUser,connectionPassword);
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
 
             CallableStatement stmt = connection.prepareCall("{call spUpdateRestaurant(?,?,?,?,?,?,?,?,?,?)}");
             stmt.setInt(("id"), restaurant.getId());
@@ -139,9 +138,30 @@ public class MySqlDataRepository implements RestDataRepository {
     }
 
     @Override
-    public <T extends EntityBase> void deleteById(Class<T> cl, int id) {
+    public int addUser(User user) {
         try {
             connection = DriverManager.getConnection(connectionString, connectionUser,connectionPassword);
+
+            CallableStatement stmt = connection.prepareCall("{call spCreateUser(?,?,?)}");
+            stmt.setString("username", user.getUsername());
+            stmt.setString("password", user.getPassword());
+            stmt.registerOutParameter("user_id", Types.INTEGER);
+            stmt.execute();
+
+            var id = stmt.getInt("user_id");
+
+            return id;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public <T extends EntityBase> void deleteById(Class<T> cl, int id) {
+        try {
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
 
             var getSqlQueryMethod = cl.getMethod("getDeleteByIdSql");
             var sql = getSqlQueryMethod.invoke(null);
@@ -166,9 +186,9 @@ public class MySqlDataRepository implements RestDataRepository {
             ResultSet rs = statement.executeQuery(Restaurant.SELECT_QUERY);
 
             while (rs.next()) {
-                Restaurant rest = new Restaurant(rs.getInt("id_rest"), rs.getString("name_rest"), rs.getString("city_rest"), rs.getString("address_rest"), rs.getString("district_rest"), rs.getInt("free_tables_rest"), rs.getInt("max_free_tables_rest"), rs.getBigDecimal("lat"),
-                        rs.getBigDecimal("lng"), rs.getString("phone"),
-                        rs.getString("homepage"));
+                Restaurant rest = new Restaurant(rs.getInt("id_rest"), rs.getString("name_rest"), rs.getString("city_rest"), rs.getString("address_rest"), rs.getString("district_rest"), rs.getInt("free_tables_rest"), rs.getInt("max_free_tables_rest"), rs.getBigDecimal("lat_rest"),
+                        rs.getBigDecimal("lng_rest"), rs.getString("phone_rest"),
+                        rs.getString("homepage_rest"), rs.getString("username_rest"));
                 restaurants.add(rest);
             }
             connection.close();
@@ -264,13 +284,68 @@ public class MySqlDataRepository implements RestDataRepository {
     }
 
     @Override
+    public User getUserByUserName(String username) {
+        try {
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(Restaurant.SELECT_QUERY + " where username_rest ='" + username + "'");
+            while (rs.next()) {
+                return User.createUser(rs);
+            }
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Restaurant getByUserName(String name) {
+        try {
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(Restaurant.SELECT_QUERY + " where username_rest ='" + name + "'");
+            while (rs.next()) {
+                return Restaurant.createRestaurant(rs);
+            }
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @Override
+    public User getUserByUserNameAndPassword(String username, String password) {
+        User user = null;
+        try {
+            connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(User.SELECT_QUERY + " where username = '" + username + "' and password = '" + password + "'");
+            if (rs.next()) {
+                user = User.createUser(rs);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public void updateFreeTableCount(Restaurant rest, int count) {
 
         try {
             connection = DriverManager.getConnection(connectionString, connectionUser, connectionPassword);
             Statement stmt = connection.createStatement();
 
-            stmt.executeUpdate( "update rest_db.eateries set free_tables_rest = free_tables_rest + " + count + " where name_rest = " + "'" + rest.getName() + "' and id_rest = " + rest.getId());
+            stmt.executeUpdate("update rest_db.eateries set free_tables_rest = free_tables_rest + " + count + " where name_rest = " + "'" + rest.getName() + "' and id_rest = " + rest.getId());
 
             connection.close();
 
@@ -279,5 +354,7 @@ public class MySqlDataRepository implements RestDataRepository {
         }
 
     }
+
+
 
 }

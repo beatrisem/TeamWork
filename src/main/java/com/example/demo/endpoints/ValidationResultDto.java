@@ -1,4 +1,4 @@
-package com.example.demo.endpoints;
+package com.example.demo;
 
 import com.example.demo.data.ValidationResult;
 
